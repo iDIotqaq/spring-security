@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Msg;
 import com.example.demo.service.SmsCodeService;
+import com.example.demo.utils.MobileSendMessage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ import javax.servlet.http.HttpSession;
 public class MainController {
     @Autowired
     SmsCodeService smsCodeService;
+    @Autowired
+    MobileSendMessage mobileSendMessage;
 
    Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -55,14 +58,16 @@ public class MainController {
     public String accesssDenied() {
         return "403";
     }
-    //模拟手机验证码
-//    @GetMapping("/code/sms")
-//    public void createSmsCode(HttpServletRequest request, HttpServletResponse response, String mobile){
-//        String code = RandomStringUtils.randomNumeric(6);
-//        logger.info("您输入的手机号为："+mobile);
-//        logger.info("您的登录验证码为：" + code + "，有效时间为60秒");
-//        smsCodeService.setCode(code);
-//    }
+    //手机验证码
+    @GetMapping("/code/sms")
+    public void createSmsCode(HttpServletRequest request, HttpServletResponse response, String mobile){
+        String code = RandomStringUtils.randomNumeric(6);
+        logger.info("您输入的手机号为："+mobile);
+        logger.info("您的登录验证码为：" + code + "，有效时间为60秒");
+        String result = mobileSendMessage.Mobile(mobile,code);
+        smsCodeService.setCode(code);
+        logger.info(result);
+    }
     //邮箱验证
     @GetMapping("/code/email")
     public void createEmailCode(HttpServletRequest request, HttpServletResponse response, String mobile){

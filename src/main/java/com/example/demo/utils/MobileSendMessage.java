@@ -1,12 +1,7 @@
-package com.example.demo;
+package com.example.demo.utils;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,33 +10,19 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class DemoApplicationTests {
-
-    @Autowired
-    private JavaMailSender mailSender;
-    @Test
-    public void contextLoads() {
-        SimpleMailMessage mainMessage = new SimpleMailMessage();
-        //发送者
-        mainMessage.setFrom("609747994@qq.com");
-        //接收者
-        mainMessage.setTo("609747994@qq.com");
-        //发送的标题
-        mainMessage.setSubject("嗨喽");
-        //发送的内容
-        mainMessage.setText("hello world");
-        mailSender.send(mainMessage);
-    }
-    @Test
-    public void Mobile(){
+/**
+ * @Author: zxx
+ * @Date: 2018/12/10 20:39
+ * @Version 1.0
+ */
+@Component
+public class MobileSendMessage {
+    public String Mobile(String mobile,String Code){
 
         String testUsername = "woai_zxx"; //在短信宝注册的用户名
         String testPassword = "xuan1213"; //在短信宝注册的密码
-        String testPhone = "15174709066";
-        String testContent = "【测试宝】您的验证码是1234,５分钟内有效。若非本人操作请忽略此消息。"; // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
+        String testPhone = mobile;
+        String testContent = "【测试宝】您的验证码是"+Code+",５分钟内有效。若非本人操作请忽略此消息。"; // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
 
         String httpUrl = "http://api.smsbao.com/sms";
 
@@ -52,7 +33,7 @@ public class DemoApplicationTests {
         httpArg.append("c=").append(encodeUrlString(testContent, "UTF-8"));
 
         String result = request(httpUrl, httpArg.toString());
-        System.out.println(result);
+        return result;
     }
 
     public static String request(String httpUrl, String httpArg) {
@@ -118,6 +99,4 @@ public class DemoApplicationTests {
         return strret;
     }
 
-    }
-
-
+}

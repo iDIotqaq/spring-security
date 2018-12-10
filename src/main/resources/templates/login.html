@@ -72,7 +72,7 @@
 $(function () {
    $("#Sms").click(function () {
        var  mobile = $("#username").val();
-       $.get("/code/email?mobile="+mobile,function () {
+       $.get("/code/sms?mobile="+mobile,function () {
            alert("已发送");
        })
    })

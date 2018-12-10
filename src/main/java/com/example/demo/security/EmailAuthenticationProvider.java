@@ -46,7 +46,7 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
             throw new AuthenticationServiceException("User name can't be null");
         }
         String Code = smsCodeService.getCode();
-        User user = userDao.findByUserEmail(username);
+        User user = userDao.findByUserMobile(username);
         if (user == null) {
             throw new AuthenticationServiceException("没有该邮箱的用户，请重新输入");
         }else if(password==null) {
