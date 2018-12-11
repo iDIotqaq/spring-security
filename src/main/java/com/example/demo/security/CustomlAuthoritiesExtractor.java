@@ -37,8 +37,8 @@ public class CustomlAuthoritiesExtractor extends FixedAuthoritiesExtractor {
         String loginName = (String)map.get("login");
         User user = userDao.findByUserName(loginName);
 
-        System.out.println(user);
-        log.info(loginName);
+        //System.out.println(user);
+        //log.info(loginName);
         String authorities = "ROLE_ADMIN";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
         List<Permission> permissions = permissionDao.findByAdminUserId(user.getId());

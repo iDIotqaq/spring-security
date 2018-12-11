@@ -64,7 +64,7 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
                 grantedAuthorities.add(grantedAuthority);
             }
         }
-        Authentication auth = new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.getLogin_name(), password, grantedAuthorities);
         return auth;
     }
 

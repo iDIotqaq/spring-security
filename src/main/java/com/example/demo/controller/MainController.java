@@ -62,11 +62,16 @@ public class MainController {
     @GetMapping("/code/sms")
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response, String mobile){
         String code = RandomStringUtils.randomNumeric(6);
-        logger.info("您输入的手机号为："+mobile);
-        logger.info("您的登录验证码为：" + code + "，有效时间为60秒");
+//        logger.info("您输入的手机号为："+mobile);
+//        logger.info("您的登录验证码为：" + code + "，有效时间为60秒");
         String result = mobileSendMessage.Mobile(mobile,code);
         smsCodeService.setCode(code);
-        logger.info(result);
+        if("0".equals(result)){
+            logger.info("发送成功");
+        }else{
+            logger.info("发送失败");
+        }
+
     }
     //邮箱验证
     @GetMapping("/code/email")

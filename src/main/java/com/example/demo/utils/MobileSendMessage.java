@@ -18,11 +18,13 @@ import java.security.NoSuchAlgorithmException;
 @Component
 public class MobileSendMessage {
     public String Mobile(String mobile,String Code){
-
-        String testUsername = "woai_zxx"; //在短信宝注册的用户名
-        String testPassword = "xuan1213"; //在短信宝注册的密码
+        //在短信宝注册的用户名
+        String testUsername = "woai_zxx";
+        //在短信宝注册的密码
+        String testPassword = "xuan1213";
         String testPhone = mobile;
-        String testContent = "【張曉軒】您的验证码是"+Code+",５分钟内有效。若非本人操作请忽略此消息。"; // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
+        // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
+        String testContent = "【張曉軒】您的验证码是"+Code+",５分钟内有效。若非本人操作请忽略此消息。";
 
         String httpUrl = "http://api.smsbao.com/sms";
 
@@ -74,10 +76,12 @@ public class MobileSendMessage {
             buf = new StringBuffer("");
             for (int offset = 0; offset < b.length; offset++) {
                 i = b[offset];
-                if (i < 0)
+                if (i < 0){
                     i += 256;
-                if (i < 16)
+                }
+                if (i < 16){
                     buf.append("0");
+                }
                 buf.append(Integer.toHexString(i));
             }
         } catch (NoSuchAlgorithmException e) {
